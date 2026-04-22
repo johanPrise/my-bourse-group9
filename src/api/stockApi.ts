@@ -9,5 +9,7 @@ export async function fetchStocks(): Promise<Stock[]> {
     throw new Error(`HTTP ${response.status}`);
   }
 
-  return response.json() as Promise<Stock[]>;
+  const stocks = (await response.json()) as Stock[];
+
+  return stocks;
 }
