@@ -1,7 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { getErrorMessage } from "./api/errors";
 import { fetchStocks } from "./api/stockApi";
 import { renderMainUi } from "./ui/mainUi";
-import "./ui/mainUi.css";
+//import "./ui/mainUi.css";
 
 async function App(): Promise<void> {
   const app = document.getElementById("app");
@@ -22,10 +23,7 @@ async function App(): Promise<void> {
 
     renderMainUi(app, { status: "ready", stocks });
   } catch (error) {
-    const message =
-      error instanceof Error
-        ? error.message
-        : "Une erreur inconnue est survenue.";
+    const message = getErrorMessage(error);
 
     renderMainUi(app, { status: "error", message });
   }
