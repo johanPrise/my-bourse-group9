@@ -1,0 +1,74 @@
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+body[data-theme="light"] {
+  background:
+    radial-gradient(circle at top left, rgba(13, 110, 253, 0.12), transparent 28%),
+    linear-gradient(180deg, #f7f9fc 0%, #eef3f9 100%);
+}
+
+body[data-theme="dark"] {
+  background:
+    radial-gradient(circle at top left, rgba(58, 134, 255, 0.16), transparent 30%),
+    linear-gradient(180deg, #0b1220 0%, #111827 100%);
+}
+
+.app-shell {
+  backdrop-filter: blur(10px);
+  transition:
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+body[data-theme="light"] .app-shell {
+  background-color: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1rem 2.5rem rgba(15, 23, 42, 0.08);
+}
+
+body[data-theme="dark"] .app-shell {
+  background-color: rgba(17, 24, 39, 0.9);
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.28);
+}
+
+.chart-surface {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+body[data-theme="light"] .chart-surface {
+  background-color: #ffffff;
+}
+
+body[data-theme="dark"] .chart-surface {
+  background-color: rgba(15, 23, 42, 0.78);
+  border-color: rgba(148, 163, 184, 0.28) !important;
+}
+
+body[data-theme="dark"] .table-light,
+body[data-theme="dark"] .text-bg-light,
+body[data-theme="dark"] details summary {
+  color: var(--bs-body-color);
+}
+
+body[data-theme="dark"] .table-light {
+  --bs-table-bg: rgba(30, 41, 59, 0.9);
+  --bs-table-color: var(--bs-body-color);
+}
+
+body[data-theme="dark"] .table-hover > tbody > tr:hover > * {
+  --bs-table-accent-bg: rgba(59, 130, 246, 0.12);
+}
+
+body[data-theme="dark"] .text-bg-light {
+  background-color: rgba(148, 163, 184, 0.18) !important;
+  border-color: rgba(148, 163, 184, 0.28) !important;
+}
