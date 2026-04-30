@@ -62,13 +62,18 @@ function renderControls(stocks: Stock[]): string {
         <button type="button" class="btn btn-outline-primary" data-period="ALL">Tout</button>
       </div>
 
-      <div class="btn-group ms-md-auto" role="group" aria-label="Type de graphique">
-        <button type="button" class="btn btn-outline-secondary active" data-type="line">Ligne</button>
-        <button type="button" class="btn btn-outline-secondary" data-type="bar">Barres</button>
+      <div class="d-flex flex-wrap gap-2 ms-md-auto">
+        <div class="btn-group" role="group" aria-label="Type de graphique">
+          <button type="button" class="btn btn-outline-secondary active" data-type="line">Ligne</button>
+          <button type="button" class="btn btn-outline-secondary" data-type="bar">Barres</button>
+        </div>
+        <button type="button" id="export-csv" class="btn btn-success">
+          Exporter CSV
+        </button>
       </div>
     </div>
 
-    <div class="border rounded p-2 bg-white" style="position: relative; height: 420px;">
+    <div class="chart-surface border rounded p-2" style="position: relative; height: 420px;">
       <canvas id="price-chart"></canvas>
     </div>
   `;
@@ -142,13 +147,23 @@ export function renderMainUi(container: HTMLElement, state: UiState): void {
 
   container.innerHTML = `
     <main class="container py-4 py-md-5">
-      <section class="card shadow-sm">
+      <section class="app-shell card shadow-sm border-0">
         <div class="card-body p-3 p-md-4">
-          <header class="mb-3 mb-md-4">
-            <h1 class="h3 mb-1">MyBourse</h1>
-            <p class="text-body-secondary mb-0">
-              Visualisez et comparez l'evolution des cours boursiers
-            </p>
+          <header class="d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3 mb-3 mb-md-4">
+            <div>
+              <h1 class="h3 mb-1">MyBourse</h1>
+              <p class="text-body-secondary mb-0">
+                Visualisez et comparez l'evolution des cours boursiers
+              </p>
+            </div>
+            <button
+              id="theme-toggle"
+              type="button"
+              class="btn btn-outline-secondary align-self-start"
+              aria-pressed="false"
+            >
+              Mode sombre
+            </button>
           </header>
           ${content}
         </div>

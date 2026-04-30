@@ -9,6 +9,9 @@ Application web en TypeScript permettant de visualiser et comparer l'evolution d
 - Comparaison de deux actions sur un meme graphique
 - Changement de periode: `1 semaine`, `1 mois`, `1 an`, `tout`
 - Changement du type de graphique: `ligne` ou `barres`
+- Export des donnees affichees au format `CSV`
+- Sauvegarde des preferences utilisateur
+- Mode sombre
 - Gestion des erreurs reseau, API et donnees invalides
 
 ## Stack technique
@@ -68,6 +71,8 @@ npm run preview
 - Les donnees de l'API sont validees avant utilisation.
 - L'interface est generee et mise a jour dynamiquement via le DOM.
 - `Chart.js` a ete retenu pour produire rapidement un graphique lisible et interactif.
+- Les preferences utilisateur et le theme sont sauvegardes dans `localStorage`.
+- Les donnees actuellement affichees peuvent etre exportees au format `CSV`.
 
 ## API utilisee
 
@@ -85,4 +90,3 @@ Le projet couvre les points principaux du sujet :
 - affichage graphique dynamique
 - comparaison de deux actions
 - gestion des erreurs
-
