@@ -9,6 +9,15 @@ export type UiState =
   | { status: "empty" }
   | { status: "ready"; stocks: Stock[] };
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function formatPrice(stock: Stock): string {
   return new Intl.NumberFormat("fr-FR", {
     style: "currency",
@@ -21,7 +30,7 @@ function buildOptions(stocks: Stock[], defaultIndex: number): string {
   return stocks
     .map(
       (s, i) =>
-        `<option value="${s.symbol}"${i === defaultIndex ? " selected" : ""}>${s.name} (${s.symbol})</option>`,
+        `<option value="${escapeHtml(s.symbol)}"${i === defaultIndex ? " selected" : ""}>${escapeHtml(s.name)} (${escapeHtml(s.symbol)})</option>`,
     )
     .join("");
 }
@@ -70,10 +79,10 @@ function renderTableRows(stocks: Stock[]): string {
     .map(
       (stock) => `
         <tr>
-          <td class="fw-semibold">${stock.name}</td>
-          <td><span class="badge text-bg-light border">${stock.symbol}</span></td>
-          <td class="text-body-secondary">${stock.sector}</td>
-          <td class="text-end">${formatPrice(stock)}</td>
+          <td class="fw-semibold">${escapeHtml(stock.name)}</td>
+          <td><span class="badge text-bg-light border">${escapeHtml(stock.symbol)}</span></td>
+          <td class="text-body-secondary">${escapeHtml(stock.sector)}</td>
+          <td class="text-end">${escapeHtml(formatPrice(stock))}</td>
         </tr>
       `,
     )
@@ -115,7 +124,7 @@ export function renderMainUi(container: HTMLElement, state: UiState): void {
     if (state.status === "error") {
       return `
         <div class="alert alert-danger" role="alert">
-          Impossible de charger les actions: ${state.message}
+          Impossible de charger les actions: ${escapeHtml(state.message)}
         </div>
       `;
     }

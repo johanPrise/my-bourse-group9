@@ -1,7 +1,24 @@
-import type { Stock } from "../models/stock";
+import type { Stock, StockHistory } from "../models/stock";
 import { ApiError, InvalidDataError, NetworkError } from "./errors";
 
 const API_URL = "https://keligmartin.github.io/api/stocks.json";
+
+function isStockHistoryEntry(item: unknown): item is StockHistory {
+  if (!item || typeof item !== "object") {
+    return false;
+  }
+
+  const historyEntry = item as Partial<StockHistory>;
+
+  return (
+    typeof historyEntry.date === "string" &&
+    Number.isFinite(Date.parse(historyEntry.date)) &&
+    typeof historyEntry.price === "number" &&
+    Number.isFinite(historyEntry.price) &&
+    typeof historyEntry.volume === "number" &&
+    Number.isFinite(historyEntry.volume)
+  );
+}
 
 function isStock(item: unknown): item is Stock {
   if (!item || typeof item !== "object") {
@@ -17,7 +34,8 @@ function isStock(item: unknown): item is Stock {
     typeof stock.currentPrice === "number" &&
     Number.isFinite(stock.currentPrice) &&
     typeof stock.currency === "string" &&
-    Array.isArray(stock.history)
+    Array.isArray(stock.history) &&
+    stock.history.every((entry) => isStockHistoryEntry(entry))
   );
 }
 
